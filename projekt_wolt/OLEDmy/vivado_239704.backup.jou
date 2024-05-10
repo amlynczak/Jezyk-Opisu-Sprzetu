@@ -1,0 +1,28 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri May 19 12:45:18 2023
+# Process ID: 239704
+# Current directory: /home/skoczen/xilinx_vivado/oleds/OLEDmy
+# Command line: vivado OLEDmy.xpr
+# Log file: /home/skoczen/xilinx_vivado/oleds/OLEDmy/vivado.log
+# Journal file: /home/skoczen/xilinx_vivado/oleds/OLEDmy/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project OLEDmy.xpr
+update_compile_order -fileset sources_1
+set_property used_in_synthesis false [get_files  /home/skoczen/xilinx_vivado/oleds/OLEDmy/oled.xdc]
+file mkdir /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1
+file mkdir /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new
+close [ open /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new/timing.xdc w ]
+add_files -fileset constrs_1 /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new/timing.xdc
+import_files -fileset constrs_1 /home/skoczen/xilinx_vivado/oleds/OLEDmy/oled.xdc
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+launch_runs impl_1 -jobs 8
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -jobs 8
+wait_on_run impl_1

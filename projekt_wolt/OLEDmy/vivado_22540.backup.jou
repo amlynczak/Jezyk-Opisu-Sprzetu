@@ -1,0 +1,22 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Thu Mar 11 14:42:47 2021
+# Process ID: 22540
+# Current directory: /home/staff/skoczen/vivado_proj/OLEDmy
+# Command line: vivado OLEDmy.xpr
+# Log file: /home/staff/skoczen/vivado_proj/OLEDmy/vivado.log
+# Journal file: /home/staff/skoczen/vivado_proj/OLEDmy/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project OLEDmy.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 3
+wait_on_run synth_1
+launch_simulation
+source oled_top.tcl
+restart
+close_sim
+reset_simulation -simset sim_1 -mode behavioral

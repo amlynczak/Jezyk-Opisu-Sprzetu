@@ -1,0 +1,42 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri May 19 12:45:18 2023
+# Process ID: 239704
+# Current directory: /home/skoczen/xilinx_vivado/oleds/OLEDmy
+# Command line: vivado OLEDmy.xpr
+# Log file: /home/skoczen/xilinx_vivado/oleds/OLEDmy/vivado.log
+# Journal file: /home/skoczen/xilinx_vivado/oleds/OLEDmy/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project OLEDmy.xpr
+INFO: [Project 1-313] Project file moved from '/home/staff/skoczen/vivado_proj/OLEDmy' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/cads/xilinx/Vivado/2020.2/data/ip'.
+INFO: [IP_Flow 19-3899] Cannot get the environment domain name variable for the component vendor name. Setting the vendor name to 'user.org'.
+update_compile_order -fileset sources_1
+set_property used_in_synthesis false [get_files  /home/skoczen/xilinx_vivado/oleds/OLEDmy/oled.xdc]
+file mkdir /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1
+file mkdir /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new
+close [ open /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new/timing.xdc w ]
+add_files -fileset constrs_1 /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.srcs/constrs_1/new/timing.xdc
+import_files -fileset constrs_1 /home/skoczen/xilinx_vivado/oleds/OLEDmy/oled.xdc
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+[Fri May 19 12:50:08 2023] Launched synth_1...
+Run output will be captured here: /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Fri May 19 12:50:52 2023] Launched impl_1...
+Run output will be captured here: /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -jobs 8
+[Fri May 19 13:05:52 2023] Launched synth_1...
+Run output will be captured here: /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.runs/synth_1/runme.log
+[Fri May 19 13:05:52 2023] Launched impl_1...
+Run output will be captured here: /home/skoczen/xilinx_vivado/oleds/OLEDmy/OLEDmy.runs/impl_1/runme.log
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri May 19 13:11:41 2023...

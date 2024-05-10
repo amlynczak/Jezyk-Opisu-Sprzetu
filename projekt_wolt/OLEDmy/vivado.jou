@@ -1,0 +1,46 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed May 31 13:24:51 2023
+# Process ID: 83147
+# Current directory: /tmp/skoczen/oleds/OLEDmy
+# Command line: vivado OLEDmy.xpr
+# Log file: /tmp/skoczen/oleds/OLEDmy/vivado.log
+# Journal file: /tmp/skoczen/oleds/OLEDmy/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project OLEDmy.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 3
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {/tmp/skoczen/oleds/OLEDmy/OLEDmy.runs/impl_1/oled_top.bit} [get_hw_devices xc7z020_1]
+current_hw_device [get_hw_devices xc7z020_1]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7z020_1] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property PROGRAM.FILE {/tmp/skoczen/oleds/OLEDmy/OLEDmy.runs/impl_1/oled_top.bit} [get_hw_devices xc7z020_1]
+program_hw_devices [get_hw_devices xc7z020_1]
+refresh_hw_device [lindex [get_hw_devices xc7z020_1] 0]
+export_ip_user_files -of_objects  [get_files /tmp/skoczen/oleds/OLEDmy/pixel_SSD1306.dat] -no_script -reset -force -quiet
+remove_files  /tmp/skoczen/oleds/OLEDmy/pixel_SSD1306.dat
+add_files -norecurse /tmp/skoczen/oleds/OLEDmy/pixel_SSD1306.mem
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 3
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property PROGRAM.FILE {/tmp/skoczen/oleds/OLEDmy/OLEDmy.runs/impl_1/oled_top.bit} [get_hw_devices xc7z020_1]
+program_hw_devices [get_hw_devices xc7z020_1]
+refresh_hw_device [lindex [get_hw_devices xc7z020_1] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property PROGRAM.FILE {/tmp/skoczen/oleds/OLEDmy/OLEDmy.runs/impl_1/oled_top.bit} [get_hw_devices xc7z020_1]
+program_hw_devices [get_hw_devices xc7z020_1]
+refresh_hw_device [lindex [get_hw_devices xc7z020_1] 0]
+close_hw_manager
+reset_run synth_1
