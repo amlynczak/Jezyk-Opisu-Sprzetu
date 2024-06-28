@@ -14,7 +14,7 @@
 // Revision: 1.1
 // Revision 0.01 - File Created
 //////////////////////////////////////////////////////////////////////////////////
-module oled_top #(parameter modn=100_000, dvbat=100) (input CLK, RST,
+module oled_top #(parameter modn=100_000, dvbat=100) (input CLK, RST, [11:0] data1, [11:0] data2,
 		output SDIN, SCLK, DC, RES, VBAT, VDD);       //CS, 
 
 localparam Idle=2'b00, OledInitialize=2'b01, OledExample=2'b10, Done=2'b11;
@@ -54,6 +54,8 @@ localparam Idle=2'b00, OledInitialize=2'b01, OledExample=2'b10, Done=2'b11;
 			.clk(CLK),
 			.rst(RST),
 			.en(example_en),
+			.data1(data1),
+			.data2(data2),
 			//.CS(example_cs),
 			.sdo(example_sdo),
 			.sclk(example_sclk),

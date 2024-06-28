@@ -1,13 +1,21 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 module fsm_oper #(parameter reg [11:0] del4s = 12'd4000, reg [11:0] del1s = 12'd1000) 
-	(input clk, rst, en,
+	(input clk, rst, en, input [11:0] data1, [11:0] data2,
     output sdo, sclk, fin, output reg dc);
+
+logic [7:0] mem [0:24575];
+initial $readmemh("output.mem", mem);
 
 localparam nb_screens = 2'b11,
 	nb_pages = 3'b100, 
 	nb_letters = 5'b10000,
 	nb_columns = 4'b1000;
+	
+integer i;
+
+reg [7:0] display_screen[0:3][0:15];
+reg display_screen_ready;
 
 reg [7:0] current_screen[0:3][0:15];
 `include "screens.vh"
@@ -48,7 +56,14 @@ always @* begin
 	nst = idle;
 	case(st)
 		idle: nst = en?screen:idle;
-		screen: nst = page;	//timeDisp;
+		screen: begin
+		  if(cnt_page != 2'b10)
+		      nst = page;	//timeDisp;
+		  else if(display_screen_ready == 1'b1)
+		      nst = page;
+		  else
+		      nst = screen;
+		end
 		pageInit: if(cnt_page == nb_pages) nst = back;
 		          else nst = page;
 		page: nst = page_fin?sendChar:page;
@@ -61,7 +76,7 @@ always @* begin
 			else nst = sendChar;
 		timeDisp: if (cnt_screen == nb_screens) nst = done;
 		  else nst = delay_fin?screen:timeDisp;
-		done: nst = en?done:idle;
+		done: nst = screen;
 	endcase
 end
 
@@ -89,15 +104,41 @@ always @(posedge clk, posedge rst)
 			2'b01: delay_ms <= del1s;
 		endcase
 
+always @(posedge clk)
+    if(st == screen && cnt_screen == 2'b10) begin
+        display_screen_ready = 1'b0;
+        display_screen = base_display_screen;
+        
+        /*for(i = 0; i<12; i++) begin
+            if(data1[i] == 1'b0) display_screen[1][i] = "0";
+            else display_screen[1][i] = "1";
+        end*/
+        
+        for(i =0; i<6; i++)begin
+            display_screen[1][3+i] = mem[16'd6*data1 + i];
+        end
+        
+        for(i =0; i<6; i++)begin
+            display_screen[3][3+i] = mem[16'd6*data2 + i];
+        end
+        
+        /*for(i = 0; i<12; i++) begin
+            if(data2[i] == 1'b0) display_screen[3][i] = "0";
+            else display_screen[3][i] = "1";
+        end*/
+        
+        display_screen_ready = 1'b1;
+    end
+
 //screen register
 always @(posedge clk)   //, posedge rst)
 	if(rst)
-		current_screen <= clear_screen;
+		current_screen <= agh_screen;
 	else if(st == screen)
 		case(cnt_screen)
-			2'b00: current_screen <= alphabet_screen;
-			2'b01: current_screen <= clear_screen; 
-			2'b10: current_screen <= agh_screen;
+			2'b00: current_screen <= agh_screen;
+			2'b01: current_screen <= authors_screen; 
+			2'b10: if(display_screen_ready == 1'b1) current_screen <= display_screen;
 		endcase
 
 //screen counter
@@ -107,7 +148,8 @@ always @(posedge clk, posedge rst)
 	else if (st == idle)
 		cnt_screen <= 2'b0;
 	else if ((st == back) & (cnt_page == nb_pages))
-			cnt_screen <= cnt_screen + 1;
+	        if(cnt_screen != 2'b10)
+			     cnt_screen <= cnt_screen + 1;
 
 //page counter
 always @(posedge clk)   //, posedge rst)
